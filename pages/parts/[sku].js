@@ -1,6 +1,8 @@
 import Head from "next/head";
+import Link from "next/link";
 import Header from "../../components/Header";
 import listings from "../../data/listings.json";
+import { slugify } from "../../lib/slug";
 
 export async function getStaticPaths() {
   return {
@@ -12,11 +14,21 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const item = listings.find((l) => l.sku === params.sku);
   if (!item) return { notFound: true };
-  return { props: { item } };
+
+  // A few other active items from the same brand, to give buyers somewhere
+  // to go if this exact part is sold, and to link every product page back
+  // into its category page (good for SEO, good for the buyer).
+  const related = listings
+    .filter((l) => l.brand === item.brand && l.sku !== item.sku && l.status === "active")
+    .slice(0, 4);
+
+  return { props: { item, related } };
 }
 
-export default function ProductPage({ item }) {
+export default function ProductPage({ item, related }) {
   const specEntries = Object.entries(item.itemSpecifics || {});
+  const isSold = item.status === "sold";
+  const brandSlug = slugify(item.brand);
 
   return (
     <>
@@ -29,7 +41,6 @@ export default function ProductPage({ item }) {
         <meta property="og:type" content="product" />
         <script
           type="application/ld+json"
-          // Structured data helps Google understand this is a real, priced product.
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -43,7 +54,9 @@ export default function ProductPage({ item }) {
                 price: item.price?.split(" ")[0],
                 priceCurrency: item.price?.split(" ")[1] || "USD",
                 url: item.itemWebUrl,
-                availability: "https://schema.org/InStock",
+                availability: isSold
+                  ? "https://schema.org/SoldOut"
+                  : "https://schema.org/InStock",
               },
             }),
           }}
@@ -55,23 +68,38 @@ export default function ProductPage({ item }) {
       <main className="container product-page">
         <div className="product-images">
           {(item.images || []).map((src) => (
-            <img key={src} src={src} alt={item.title} />
+            <img key={src} src={src} alt={item.title} style={isSold ? { opacity: 0.55 } : undefined} />
           ))}
         </div>
 
         <div>
-          <div className="product-sku">Part number: {item.sku}</div>
+          <div className="product-sku">
+            Part number: {item.sku} &middot;{" "}
+            <Link href={`/brands/${brandSlug}`}>{item.brand}</Link>
+          </div>
           <h1 className="product-title">{item.title}</h1>
-          {item.price && <div className="product-price">{item.price}</div>}
 
-          <a
-            className="buy-button"
-            href={item.itemWebUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Buy on eBay
-          </a>
+          {isSold ? (
+            <>
+              <div className="sold-badge">Sold</div>
+              <p className="sold-note">
+                This exact unit has sold. Browse currently available{" "}
+                <Link href={`/brands/${brandSlug}`}>{item.brand} parts</Link> below.
+              </p>
+            </>
+          ) : (
+            <>
+              {item.price && <div className="product-price">{item.price}</div>}
+              <a
+                className="buy-button"
+                href={item.itemWebUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Buy on eBay
+              </a>
+            </>
+          )}
 
           {specEntries.length > 0 && (
             <table className="specs-table">
@@ -90,6 +118,24 @@ export default function ProductPage({ item }) {
             className="product-description"
             dangerouslySetInnerHTML={{ __html: item.description }}
           />
+
+          {related.length > 0 && (
+            <div className="related-section">
+              <h2>More {item.brand} parts</h2>
+              <div className="related-grid">
+                {related.map((r) => (
+                  <Link key={r.sku} href={`/parts/${r.sku}`} className="card">
+                    {r.images?.[0] && <img src={r.images[0]} alt={r.title} />}
+                    <div className="card-body">
+                      <div className="card-sku">{r.sku}</div>
+                      <div className="card-title">{r.title}</div>
+                      {r.price && <div className="card-price">{r.price}</div>}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </>

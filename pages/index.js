@@ -9,7 +9,7 @@ export default function Home() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return listings;
+    if (!q) return listings.filter((item) => item.status === "active");
     return listings.filter((item) =>
       [item.sku, item.title, item.description].join(" ").toLowerCase().includes(q)
     );
@@ -32,12 +32,12 @@ export default function Home() {
           <h1>Find your part</h1>
           <p>
             Search the MSK Industrial Services catalog by part number, brand, or
-            description.
+            description, or <Link href="/brands">browse by brand</Link>.
           </p>
           <input
             className="search-box"
             type="text"
-            placeholder="e.g. 070-0050-00"
+            placeholder="e.g. 3RH1131-1BB40"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoFocus
@@ -50,11 +50,21 @@ export default function Home() {
           <div className="grid">
             {filtered.map((item) => (
               <Link key={item.sku} href={`/parts/${item.sku}`} className="card">
-                {item.images?.[0] && <img src={item.images[0]} alt={item.title} />}
+                {item.images?.[0] && (
+                  <img
+                    src={item.images[0]}
+                    alt={item.title}
+                    style={item.status === "sold" ? { opacity: 0.5 } : undefined}
+                  />
+                )}
                 <div className="card-body">
                   <div className="card-sku">{item.sku}</div>
                   <div className="card-title">{item.title}</div>
-                  {item.price && <div className="card-price">{item.price}</div>}
+                  {item.status === "sold" ? (
+                    <div className="card-sold">Sold</div>
+                  ) : (
+                    item.price && <div className="card-price">{item.price}</div>
+                  )}
                 </div>
               </Link>
             ))}
