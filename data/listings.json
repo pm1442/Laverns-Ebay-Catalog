@@ -1,0 +1,52 @@
+[
+  {
+    "itemId": "sample-001",
+    "sku": "3RH1131-1BB40",
+    "title": "Siemens Sirius 3RH1131-1BB40 Contactor 24V DC 10A 600V",
+    "description": "Siemens Sirius contactor, part number 3RH1131-1BB40. 24V DC coil, 10A rating, 600V. Removed from a working facility during a plant upgrade, visually inspected and tested before listing.",
+    "price": "13.95 USD",
+    "condition": "Used",
+    "images": ["https://placehold.co/600x600?text=Siemens+Contactor"],
+    "itemWebUrl": "https://www.ebay.com/itm/377300753769",
+    "itemSpecifics": {
+      "Brand": "Siemens",
+      "Part Number": "3RH1131-1BB40",
+      "Voltage": "24V DC",
+      "Amperage": "10A"
+    },
+    "lastSynced": "2026-07-23T00:00:00.000Z"
+  },
+  {
+    "itemId": "sample-002",
+    "sku": "HF-H204BS",
+    "title": "Mitsubishi HF-H204BS Servo Motor NIB",
+    "description": "Mitsubishi HF-H204BS servo motor, new in box. Sourced through a facility dismantling project. Static tested prior to listing.",
+    "price": "995.95 USD",
+    "condition": "New",
+    "images": ["https://placehold.co/600x600?text=Mitsubishi+Servo+Motor"],
+    "itemWebUrl": "https://www.ebay.com/itm/376964454582",
+    "itemSpecifics": {
+      "Brand": "Mitsubishi",
+      "Part Number": "HF-H204BS",
+      "Condition": "New in box"
+    },
+    "lastSynced": "2026-07-23T00:00:00.000Z"
+  },
+  {
+    "itemId": "sample-003",
+    "sku": "DKC03.3-040-7",
+    "title": "Rexroth DKCXX.3-040-7 ECO DRIVE 480V 16A 50-60Hz DKC03.3-040-7-FW",
+    "description": "Rexroth ECO Drive controller, part number DKC03.3-040-7-FW. 480V, 16A input, 50-60Hz. Pulled during a machine dismantling project, visually inspected before listing.",
+    "price": "239.95 USD",
+    "condition": "Used",
+    "images": ["https://placehold.co/600x600?text=Rexroth+Drive"],
+    "itemWebUrl": "https://www.ebay.com/itm/377313436342",
+    "itemSpecifics": {
+      "Brand": "Rexroth",
+      "Part Number": "DKC03.3-040-7-FW",
+      "Voltage": "480V",
+      "Amperage": "16A"
+    },
+    "lastSynced": "2026-07-23T00:00:00.000Z"
+  }
+]
