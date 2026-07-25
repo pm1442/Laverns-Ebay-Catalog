@@ -54,17 +54,19 @@ export default function Home() {
         />
       </Head>
 
-      <div className="search-bar-full">
-        <input
-          type="text"
-          placeholder={`Search all ${listings.length} parts`}
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          autoFocus
-        />
-      </div>
+      <div className="container hero-wrap">
+        <div className="search-bar-full">
+          <input
+            type="text"
+            placeholder={`Search all ${listings.length} parts`}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            autoFocus
+          />
+        </div>
 
-      <HeroBanner />
+        <HeroBanner />
+      </div>
 
       <section className="seller-bar">
         <div className="container">
