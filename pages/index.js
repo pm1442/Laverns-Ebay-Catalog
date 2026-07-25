@@ -1,12 +1,16 @@
 import { useMemo, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Header from "../components/Header";
 import HeroBanner from "../components/HeroBanner";
 import listings from "../data/listings.json";
 
+const EBAY_STORE_URL = "https://www.ebay.com/str/mskindustrialservices";
+const EBAY_CONTACT_URL =
+  "https://contact.ebay.com/ws/eBayISAPI.dll?ContactUserShow&requested=mskindustrialservices";
+
 export default function Home() {
   const [query, setQuery] = useState("");
+  const [shareMsg, setShareMsg] = useState("");
 
   const active = useMemo(() => listings.filter((item) => item.status === "active"), []);
   const brandCount = useMemo(() => new Set(active.map((item) => item.brand)).size, [active]);
@@ -21,6 +25,25 @@ export default function Home() {
 
   const isSearching = query.trim().length > 0;
 
+  const handleShare = async () => {
+    const shareData = {
+      title: "MSK Industrial Services",
+      text: "Check out MSK Industrial Services' parts catalog",
+      url: typeof window !== "undefined" ? window.location.href : "",
+    };
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch {
+        // user cancelled the share sheet -- no action needed
+      }
+    } else if (typeof navigator !== "undefined" && navigator.clipboard) {
+      await navigator.clipboard.writeText(shareData.url);
+      setShareMsg("Link copied!");
+      setTimeout(() => setShareMsg(""), 2000);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -31,7 +54,15 @@ export default function Home() {
         />
       </Head>
 
-      <Header />
+      <div className="search-bar-full">
+        <input
+          type="text"
+          placeholder={`Search all ${listings.length} parts`}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          autoFocus
+        />
+      </div>
 
       <HeroBanner />
 
@@ -48,7 +79,7 @@ export default function Home() {
               </p>
               <a
                 className="ebay-inline-link"
-                href="https://www.ebay.com/str/mskindustrialservices"
+                href={EBAY_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -56,13 +87,21 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <input
-            className="seller-search"
-            type="text"
-            placeholder={`Search all ${listings.length} parts`}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+
+          <div className="seller-actions">
+            <button type="button" className="action-btn" onClick={handleShare}>
+              &#8593; Share
+            </button>
+            <a
+              className="action-btn"
+              href={EBAY_CONTACT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              &#9993; Contact
+            </a>
+            {shareMsg && <span className="share-msg">{shareMsg}</span>}
+          </div>
         </div>
       </section>
 

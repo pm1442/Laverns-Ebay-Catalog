@@ -96,7 +96,7 @@ export default function ProductPage({ item, related }) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Buy on eBay
+                Buy Now
               </a>
             </>
           )}
