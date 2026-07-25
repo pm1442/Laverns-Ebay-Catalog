@@ -436,3 +436,155 @@ a {
   margin: 32px 0 18px;
   padding-top: 8px;
 }
+
+/* ---------- Toggling hero banner (logo <-> text, every 3s) ---------- */
+.hero-banner {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  background: var(--color-text);
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.hero-slide.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero-slide-logo {
+  background: var(--color-surface);
+}
+
+.hero-slide-logo img {
+  height: 200px;
+  width: auto;
+}
+
+.hero-slide-text {
+  background: var(--color-text);
+}
+
+.hero-text-inner {
+  max-width: 620px;
+  padding: 0 32px;
+}
+
+.hero-text-inner p {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0 0 24px;
+}
+
+.learn-more-btn {
+  display: inline-block;
+  padding: 12px 26px;
+  background: #ffffff;
+  color: var(--color-text);
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.learn-more-btn:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.hero-dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.hero-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(150, 150, 150, 0.4);
+}
+
+.hero-dots span.is-active {
+  background: var(--color-accent);
+}
+
+/* ---------- Seller bar search + inline eBay link ---------- */
+.seller-search {
+  min-width: 260px;
+  padding: 11px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 14px;
+  background: var(--color-bg);
+}
+
+.ebay-inline-link {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ebay-inline-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- About page ---------- */
+.about-page {
+  max-width: 720px;
+  padding-bottom: 80px;
+}
+
+.about-page p {
+  line-height: 1.7;
+  color: var(--color-text);
+  margin: 0 0 18px;
+}
+
+.about-tagline {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--color-text);
+  margin: 28px 0 !important;
+}
+
+.about-meta {
+  display: flex;
+  gap: 48px;
+  margin: 24px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.about-meta dt {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.about-meta dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text);
+}

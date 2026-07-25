@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Header from "../components/Header";
+import HeroBanner from "../components/HeroBanner";
 import listings from "../data/listings.json";
 
 export default function Home() {
@@ -32,24 +33,7 @@ export default function Home() {
 
       <Header />
 
-      <section className="catalog-banner">
-        <div className="container">
-          <p className="banner-eyebrow">Industrial Surplus &amp; Automation Parts</p>
-          <h1 className="banner-title">Find the exact part, fast.</h1>
-          <p className="banner-tagline">
-            Search MSK&rsquo;s full inventory by part number, brand, or description.
-            Every result links straight through to checkout.
-          </p>
-          <input
-            className="banner-search"
-            type="text"
-            placeholder="Search a part number, e.g. 3RH1131-1BB40"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            autoFocus
-          />
-        </div>
-      </section>
+      <HeroBanner />
 
       <section className="seller-bar">
         <div className="container">
@@ -62,22 +46,30 @@ export default function Home() {
                 <span className="dot">&middot;</span>
                 <strong>{brandCount}</strong> brands carried
               </p>
+              <a
+                className="ebay-inline-link"
+                href="https://www.ebay.com/str/mskindustrialservices"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View store on eBay &#8599;
+              </a>
             </div>
           </div>
-          <a
-            className="ebay-link"
-            href="https://www.ebay.com/str/mskindustrialservices"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View store on eBay
-          </a>
+          <input
+            className="seller-search"
+            type="text"
+            placeholder={`Search all ${listings.length} parts`}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
         </div>
       </section>
 
       <nav className="tabs">
         <Link href="/" className="active">Shop</Link>
         <Link href="/brands">Brands</Link>
+        <Link href="/about">About</Link>
       </nav>
 
       <main className="container">
