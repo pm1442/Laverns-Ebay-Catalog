@@ -7,6 +7,7 @@
   --color-text-muted: #6b6b6b;
   --color-accent: #c8202a;
   --color-border: #e2e2e0;
+  --font-display: "Oswald", "Segoe UI", sans-serif;
 }
 
 * {
@@ -252,4 +253,186 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
+}
+
+/* ---------- Homepage banner ---------- */
+.catalog-banner {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-text);
+  padding: 56px 0 60px;
+}
+
+.catalog-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    115deg,
+    transparent 0 46px,
+    rgba(200, 32, 42, 0.55) 46px 49px,
+    transparent 49px 96px
+  );
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.catalog-banner::after {
+  content: "";
+  position: absolute;
+  right: -60px;
+  bottom: -90px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 26px solid rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.catalog-banner .container {
+  position: relative;
+  z-index: 1;
+}
+
+.banner-eyebrow {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 10px;
+}
+
+.banner-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 40px;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  margin: 0 0 12px;
+  max-width: 680px;
+}
+
+.banner-tagline {
+  color: #d8d8d6;
+  font-size: 16px;
+  max-width: 520px;
+  margin: 0 0 28px;
+  line-height: 1.5;
+}
+
+.banner-search {
+  width: 100%;
+  max-width: 460px;
+  padding: 14px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+/* ---------- Seller info bar ---------- */
+.seller-bar {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.seller-bar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 22px 24px;
+}
+
+.seller-identity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.seller-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.seller-name {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 4px;
+}
+
+.seller-stats {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.seller-stats strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.seller-stats .dot {
+  margin: 0 8px;
+  color: var(--color-border);
+}
+
+.ebay-link {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1.5px solid var(--color-text);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ebay-link:hover {
+  background: var(--color-text);
+  color: #fff;
+}
+
+/* ---------- Tabs ---------- */
+.tabs {
+  display: flex;
+  gap: 28px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.tabs a {
+  display: inline-block;
+  padding: 14px 2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.tabs a.active {
+  color: var(--color-text);
+  border-bottom-color: var(--color-accent);
+}
+
+/* ---------- Section label ---------- */
+.section-label {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 32px 0 18px;
+  padding-top: 8px;
 }
